@@ -138,6 +138,9 @@ function pushWithSnapshot() {
 function pushWithoutSnapshot() {
   docker build ${INPUT_BUILDOPTIONS} ${BUILDPARAMS} -t ${DOCKERNAME} ${CONTEXT}
   docker push ${DOCKERNAME}
+  # HACK: also update latest tag
+  docker tag ${DOCKERNAME} ${INPUT_NAME}:latest
+  docker push ${INPUT_NAME}:latest
 }
 
 main
